@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found - TALYOUTH{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="error-page">
+                    <div class="error-code mb-4">
+                        <h1 class="display-1 fw-bold text-primary">404</h1>
+                    </div>
+                    
+                    <div class="error-message mb-4">
+                        <h2 class="h3 fw-bold mb-3">Page Not Found</h2>
+                        <p class="text-muted mb-4">
+                            Sorry, the page you are looking for doesn't exist or has been moved.
+                        </p>
+                    </div>
+                    
+                    <div class="error-actions">
+                        <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-home me-2"></i>Go Home
+                        </a>
+                        <button onclick="history.back()" class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-arrow-left me-2"></i>Go Back
+                        </button>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <img src="https://via.placeholder.com/400x300/f8f9fa/6c757d?text=Page+Not+Found" 
+                             alt="Page Not Found" class="img-fluid rounded">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Auto-redirect to home after 10 seconds if user doesn't interact
+setTimeout(function() {
+    if (confirm('Would you like to be redirected to the home page?')) {
+        window.location.href = "{{ url_for('index') }}";
+    }
+}, 10000);
+</script>
+{% endblock %}

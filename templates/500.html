@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error - TALYOUTH{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="error-page">
+                    <div class="error-code mb-4">
+                        <h1 class="display-1 fw-bold text-danger">500</h1>
+                    </div>
+                    
+                    <div class="error-message mb-4">
+                        <h2 class="h3 fw-bold mb-3">Internal Server Error</h2>
+                        <p class="text-muted mb-4">
+                            Something went wrong on our end. We're working to fix this issue.
+                        </p>
+                    </div>
+                    
+                    <div class="error-actions">
+                        <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-home me-2"></i>Go Home
+                        </a>
+                        <button onclick="location.reload()" class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-refresh me-2"></i>Try Again
+                        </button>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            If this problem persists, please contact our support team.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

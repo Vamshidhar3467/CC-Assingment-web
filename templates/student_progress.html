@@ -1,0 +1,369 @@
+{% extends "base.html" %}
+
+{% block title %}My Journey - {{ current_user.first_name }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <!-- Profile Header -->
+        <div class="row mb-5">
+            <div class="col-lg-8">
+                <div class="profile-header d-flex align-items-center">
+                    <div class="profile-avatar me-4">
+                        <div class="avatar-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                            <span class="fs-2 fw-bold">{{ current_user.first_name[0] }}{{ current_user.last_name[0] }}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="display-6 fw-bold mb-2">{{ current_user.first_name }} {{ current_user.last_name }}</h1>
+                        <p class="text-muted mb-1">
+                            <i class="fas fa-map-marker-alt me-2"></i>{{ current_user.location or 'Location not specified' }} • 
+                            Age {{ current_user.age or 'N/A' }}
+                        </p>
+                        {% if chosen_sdg %}
+                        <p class="mb-0">
+                            <span class="badge fs-6" style="background-color: {{ chosen_sdg.color }};">
+                                <i class="fas fa-globe me-2"></i>{{ chosen_sdg.title }}
+                            </span>
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="progress-summary text-center">
+                    <div class="progress-circle mx-auto mb-3" style="position: relative; width: 120px; height: 120px;">
+                        <svg width="120" height="120" class="progress-ring">
+                            <circle cx="60" cy="60" r="54" stroke="#e9ecef" stroke-width="4" fill="transparent"></circle>
+                            <circle cx="60" cy="60" r="54" stroke="#28a745" stroke-width="4" fill="transparent"
+                                    stroke-dasharray="339.292" 
+                                    stroke-dashoffset="{{ 339.292 - (339.292 * participant.progress_percentage / 100) }}"
+                                    transform="rotate(-90 60 60)"></circle>
+                        </svg>
+                        <div class="progress-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <span class="fs-3 fw-bold text-success">{{ participant.progress_percentage }}%</span>
+                            <div class="small text-muted">Completed</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Achievement Badges -->
+                    <div class="badges-earned">
+                        <h6 class="fw-bold mb-2">Badges Unlocked</h6>
+                        <div class="d-flex justify-content-center flex-wrap gap-2">
+                            {% for achievement in achievements %}
+                            <span class="badge bg-warning text-dark" title="{{ achievement.badge_description }}">
+                                {{ achievement.badge_name }}
+                            </span>
+                            {% endfor %}
+                            {% if not achievements %}
+                            <span class="text-muted small">No badges earned yet</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Reflections -->
+        <div class="section-card mb-5">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0"><i class="fas fa-journal-whills me-2"></i>Weekly Reflections</h4>
+                        <span class="badge bg-light text-primary">Week {{ participant.current_week }}/12</span>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="accordion" id="reflectionsAccordion">
+                        {% for week in range(1, 13) %}
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button {% if week != participant.current_week %}collapsed{% endif %}" 
+                                        type="button" data-bs-toggle="collapse" data-bs-target="#reflection{{ week }}">
+                                    <div class="d-flex align-items-center w-100">
+                                        <span class="me-3">
+                                            {% set reflection = reflections|selectattr('week_number', 'equalto', week)|first %}
+                                            {% if reflection and reflection.is_complete %}
+                                                <i class="fas fa-check-circle text-success"></i>
+                                            {% elif week < participant.current_week %}
+                                                <i class="fas fa-exclamation-circle text-warning"></i>
+                                            {% elif week == participant.current_week %}
+                                                <i class="fas fa-edit text-primary"></i>
+                                            {% else %}
+                                                <i class="fas fa-lock text-muted"></i>
+                                            {% endif %}
+                                        </span>
+                                        <div class="flex-grow-1">
+                                            <strong>Week {{ week }}:</strong>
+                                            {% if week <= 4 %}
+                                                Social Entrepreneurship
+                                            {% elif week <= 8 %}
+                                                Social Advocacy
+                                            {% else %}
+                                                Philanthropy & Volunteering
+                                            {% endif %}
+                                        </div>
+                                        {% if reflection and reflection.is_complete %}
+                                            <span class="badge bg-success">Completed</span>
+                                        {% elif week <= participant.current_week %}
+                                            <span class="badge bg-warning">Available</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">Locked</span>
+                                        {% endif %}
+                                    </div>
+                                </button>
+                            </h3>
+                            <div id="reflection{{ week }}" class="accordion-collapse collapse {% if week == participant.current_week %}show{% endif %}" 
+                                 data-bs-parent="#reflectionsAccordion">
+                                <div class="accordion-body">
+                                    {% if week <= participant.current_week %}
+                                        {% set reflection = reflections|selectattr('week_number', 'equalto', week)|first %}
+                                        <form method="POST" action="{{ url_for('submit_reflection') }}" class="reflection-form">
+                                            <input type="hidden" name="week_number" value="{{ week }}">
+                                            <input type="hidden" name="theme" value="{% if week <= 4 %}social_entrepreneurship{% elif week <= 8 %}advocacy{% else %}philanthropy{% endif %}">
+                                            
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">What did you learn this week?</label>
+                                                    <textarea class="form-control" name="what_learned" rows="4" 
+                                                              {% if reflection and reflection.is_complete %}readonly{% endif %}>{{ reflection.what_learned if reflection else '' }}</textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">What challenge did you face and how did you overcome it?</label>
+                                                    <textarea class="form-control" name="challenges_faced" rows="4"
+                                                              {% if reflection and reflection.is_complete %}readonly{% endif %}>{{ reflection.challenges_faced if reflection else '' }}</textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">What did you contribute to your team?</label>
+                                                    <textarea class="form-control" name="team_contribution" rows="4"
+                                                              {% if reflection and reflection.is_complete %}readonly{% endif %}>{{ reflection.team_contribution if reflection else '' }}</textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">Additional notes (optional)</label>
+                                                    <textarea class="form-control" name="additional_notes" rows="4"
+                                                              {% if reflection and reflection.is_complete %}readonly{% endif %}>{{ reflection.additional_notes if reflection else '' }}</textarea>
+                                                </div>
+                                            </div>
+                                            
+                                            {% if not (reflection and reflection.is_complete) %}
+                                            <div class="mt-3">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-save me-2"></i>Submit Reflection
+                                                </button>
+                                            </div>
+                                            {% else %}
+                                            <div class="mt-3">
+                                                <div class="alert alert-success">
+                                                    <i class="fas fa-check-circle me-2"></i>
+                                                    Reflection completed on {{ reflection.submitted_at.strftime('%-d %B %Y') }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </form>
+                                    {% else %}
+                                        <div class="text-center py-4">
+                                            <i class="fas fa-lock fa-3x text-muted mb-3"></i>
+                                            <p class="text-muted">This week's reflection will be available when you reach Week {{ week }}.</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mentor Feedback -->
+        {% if feedback %}
+        <div class="section-card mb-5">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0"><i class="fas fa-comments me-2"></i>Mentor Feedback</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        {% for fb in feedback %}
+                        <div class="col-md-6">
+                            <div class="feedback-card p-3 border rounded">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="fw-bold mb-0">Week {{ fb.week_number }} Feedback</h6>
+                                    <small class="text-muted">{{ fb.created_at.strftime('%-d %B') }}</small>
+                                </div>
+                                
+                                <div class="ratings mb-3">
+                                    <div class="row g-2 text-center">
+                                        <div class="col-3">
+                                            <div class="rating-item">
+                                                <div class="fw-bold text-primary">{{ fb.participation_rating or 'N/A' }}/5</div>
+                                                <small class="text-muted">Participation</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="rating-item">
+                                                <div class="fw-bold text-success">{{ fb.creativity_rating or 'N/A' }}/5</div>
+                                                <small class="text-muted">Creativity</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="rating-item">
+                                                <div class="fw-bold text-warning">{{ fb.collaboration_rating or 'N/A' }}/5</div>
+                                                <small class="text-muted">Collaboration</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="rating-item">
+                                                <div class="fw-bold text-info">{{ fb.initiative_rating or 'N/A' }}/5</div>
+                                                <small class="text-muted">Initiative</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                {% if fb.comments %}
+                                <div class="comments">
+                                    <h6 class="small fw-bold text-uppercase text-muted">Comments</h6>
+                                    <p class="small">{{ fb.comments }}</p>
+                                </div>
+                                {% endif %}
+                                
+                                {% if fb.suggestions %}
+                                <div class="suggestions">
+                                    <h6 class="small fw-bold text-uppercase text-muted">Suggestions</h6>
+                                    <p class="small">{{ fb.suggestions }}</p>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Milestones & Certificates -->
+        <div class="section-card">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0"><i class="fas fa-trophy me-2"></i>Milestones & Certificates</h4>
+                </div>
+                <div class="card-body">
+                    <div class="milestones-timeline">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="milestone-item text-center p-3">
+                                    <div class="milestone-icon mb-3">
+                                        {% if participant.current_week > 4 %}
+                                            <i class="fas fa-check-circle fa-3x text-success"></i>
+                                        {% else %}
+                                            <i class="fas fa-clock fa-3x text-muted"></i>
+                                        {% endif %}
+                                    </div>
+                                    <h6 class="fw-bold">Week 4: Pitch Submitted</h6>
+                                    <p class="small text-muted">Social Entrepreneurship Theme Complete</p>
+                                    {% if participant.current_week > 4 %}
+                                        <span class="badge bg-success">Completed</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Pending</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="milestone-item text-center p-3">
+                                    <div class="milestone-icon mb-3">
+                                        {% if participant.current_week > 8 %}
+                                            <i class="fas fa-check-circle fa-3x text-success"></i>
+                                        {% else %}
+                                            <i class="fas fa-clock fa-3x text-muted"></i>
+                                        {% endif %}
+                                    </div>
+                                    <h6 class="fw-bold">Week 8: Campaign Launched</h6>
+                                    <p class="small text-muted">Social Advocacy Theme Complete</p>
+                                    {% if participant.current_week > 8 %}
+                                        <span class="badge bg-success">Completed</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Pending</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="milestone-item text-center p-3">
+                                    <div class="milestone-icon mb-3">
+                                        {% if participant.current_week > 12 %}
+                                            <i class="fas fa-check-circle fa-3x text-success"></i>
+                                        {% else %}
+                                            <i class="fas fa-clock fa-3x text-muted"></i>
+                                        {% endif %}
+                                    </div>
+                                    <h6 class="fw-bold">Week 12: Final Showcase</h6>
+                                    <p class="small text-muted">Program Graduation</p>
+                                    {% if participant.current_week > 12 %}
+                                        <span class="badge bg-success">Completed</span>
+                                        <div class="mt-2">
+                                            <button class="btn btn-primary btn-sm">Download Certificate</button>
+                                        </div>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Pending</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Auto-save draft reflections
+document.querySelectorAll('.reflection-form textarea').forEach(textarea => {
+    textarea.addEventListener('input', function() {
+        const formData = new FormData(this.closest('form'));
+        const weekNumber = formData.get('week_number');
+        
+        // Save draft to localStorage
+        const draftKey = `reflection_draft_week_${weekNumber}`;
+        const draftData = {
+            what_learned: formData.get('what_learned'),
+            challenges_faced: formData.get('challenges_faced'),
+            team_contribution: formData.get('team_contribution'),
+            additional_notes: formData.get('additional_notes')
+        };
+        localStorage.setItem(draftKey, JSON.stringify(draftData));
+    });
+});
+
+// Load drafts on page load
+document.querySelectorAll('.reflection-form').forEach(form => {
+    const weekNumber = form.querySelector('input[name="week_number"]').value;
+    const draftKey = `reflection_draft_week_${weekNumber}`;
+    const savedDraft = localStorage.getItem(draftKey);
+    
+    if (savedDraft) {
+        const draftData = JSON.parse(savedDraft);
+        Object.keys(draftData).forEach(key => {
+            const field = form.querySelector(`[name="${key}"]`);
+            if (field && !field.value) {
+                field.value = draftData[key];
+            }
+        });
+    }
+});
+
+// Clear draft after successful submission
+document.querySelectorAll('.reflection-form').forEach(form => {
+    form.addEventListener('submit', function() {
+        const weekNumber = this.querySelector('input[name="week_number"]').value;
+        const draftKey = `reflection_draft_week_${weekNumber}`;
+        localStorage.removeItem(draftKey);
+    });
+});
+</script>
+{% endblock %}

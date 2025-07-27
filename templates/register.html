@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - TALYOUTH SDG Leadership Program</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2E8B57;
+            --secondary-color: #FFD700;
+            --accent-color: #FF6B35;
+            --text-dark: #2C3E50;
+            --text-light: #7F8C8D;
+            --bg-light: #F8F9FA;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .registration-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .registration-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .registration-header {
+            background: linear-gradient(45deg, var(--primary-color), #20B2AA);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .registration-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+
+        .registration-header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .registration-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .registration-body {
+            padding: 2.5rem;
+        }
+
+        .user-type-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .user-type-option {
+            flex: 1;
+            min-width: 200px;
+            padding: 1.5rem;
+            border: 2px solid #E9ECEF;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .user-type-option:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 139, 87, 0.2);
+        }
+
+        .user-type-option.active {
+            border-color: var(--primary-color);
+            background: linear-gradient(45deg, var(--primary-color), #20B2AA);
+            color: white;
+        }
+
+        .user-type-option i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            border: 2px solid #E9ECEF;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(46, 139, 87, 0.25);
+        }
+
+        .form-select {
+            border: 2px solid #E9ECEF;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+        }
+
+        .sdg-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .sdg-option {
+            padding: 1rem;
+            border: 2px solid #E9ECEF;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .sdg-option:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .sdg-option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(46, 139, 87, 0.1);
+        }
+
+        .btn-register {
+            background: linear-gradient(45deg, var(--primary-color), #20B2AA);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            width: 100%;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3);
+        }
+
+        .alert {
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .dynamic-fields {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .dynamic-fields.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #E9ECEF;
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .registration-header h1 {
+                font-size: 2rem;
+            }
+            
+            .user-type-selector {
+                flex-direction: column;
+            }
+            
+            .registration-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <div class="registration-card">
+            <div class="registration-header">
+                <h1><i class="fas fa-users"></i> Join TALYOUTH</h1>
+                <p>Empower yourself to create positive change through the UN Sustainable Development Goals</p>
+            </div>
+            
+            <div class="registration-body">
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                                <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'info-circle' }}"></i>
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <form method="POST" id="registrationForm">
+                    <!-- User Type Selection -->
+                    <div class="form-group">
+                        <label class="form-label">I want to join as:</label>
+                        <div class="user-type-selector">
+                            <div class="user-type-option" data-type="participant">
+                                <i class="fas fa-graduation-cap"></i>
+                                <strong>Participant</strong>
+                                <p class="small mb-0">Learn and lead SDG projects</p>
+                            </div>
+                            <div class="user-type-option" data-type="mentor">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <strong>Mentor</strong>
+                                <p class="small mb-0">Guide and inspire youth</p>
+                            </div>
+                            <div class="user-type-option" data-type="chapter_head">
+                                <i class="fas fa-users-cog"></i>
+                                <strong>Chapter Head</strong>
+                                <p class="small mb-0">Lead local chapters</p>
+                            </div>
+                        </div>
+                        <input type="hidden" name="user_type" id="user_type" required>
+                    </div>
+
+                    <!-- Basic Information -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="first_name" class="form-label">First Name *</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="last_name" class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password" class="form-label">Password *</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="age" class="form-label">Age</label>
+                                <input type="number" class="form-control" id="age" name="age" min="13" max="100">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" placeholder="City, Country">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Participant-specific fields -->
+                    <div id="participant-fields" class="dynamic-fields">
+                        <h5><i class="fas fa-user-graduate"></i> Participant Information</h5>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Choose your primary SDG focus:</label>
+                            <div class="sdg-grid">
+                                {% if sdgs %}
+                                    {% for sdg in sdgs[:6] %}
+                                    <div class="sdg-option" data-sdg="{{ sdg.number }}">
+                                        <strong>SDG {{ sdg.number }}</strong>
+                                        <p class="small mb-0">{{ sdg.title }}</p>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="sdg-option" data-sdg="1">
+                                        <strong>SDG 1</strong>
+                                        <p class="small mb-0">No Poverty</p>
+                                    </div>
+                                    <div class="sdg-option" data-sdg="2">
+                                        <strong>SDG 2</strong>
+                                        <p class="small mb-0">Zero Hunger</p>
+                                    </div>
+                                    <div class="sdg-option" data-sdg="3">
+                                        <strong>SDG 3</strong>
+                                        <p class="small mb-0">Good Health</p>
+                                    </div>
+                                    <div class="sdg-option" data-sdg="4">
+                                        <strong>SDG 4</strong>
+                                        <p class="small mb-0">Quality Education</p>
+                                    </div>
+                                    <div class="sdg-option" data-sdg="5">
+                                        <strong>SDG 5</strong>
+                                        <p class="small mb-0">Gender Equality</p>
+                                    </div>
+                                    <div class="sdg-option" data-sdg="6">
+                                        <strong>SDG 6</strong>
+                                        <p class="small mb-0">Clean Water</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <input type="hidden" name="chosen_sdg" id="chosen_sdg">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="school_organization" class="form-label">School/Organization</label>
+                            <input type="text" class="form-control" id="school_organization" name="school_organization">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="availability" class="form-label">Availability</label>
+                            <select class="form-select" id="availability" name="availability">
+                                <option value="">Select your availability</option>
+                                <option value="weekdays">Weekdays</option>
+                                <option value="weekends">Weekends</option>
+                                <option value="flexible">Flexible</option>
+                                <option value="limited">Limited</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Mentor-specific fields -->
+                    <div id="mentor-fields" class="dynamic-fields">
+                        <h5><i class="fas fa-chalkboard-teacher"></i> Mentor Information</h5>
+                        
+                        <div class="form-group">
+                            <label for="organization" class="form-label">Organization/Company</label>
+                            <input type="text" class="form-control" id="organization" name="organization">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="linkedin_url" class="form-label">LinkedIn Profile</label>
+                            <input type="url" class="form-control" id="linkedin_url" name="linkedin_url" placeholder="https://linkedin.com/in/yourprofile">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="expertise_areas" class="form-label">Areas of Expertise</label>
+                            <textarea class="form-control" id="expertise_areas" name="expertise_areas" rows="3" placeholder="Describe your areas of expertise and how you can help participants..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bio" class="form-label">Professional Bio</label>
+                            <textarea class="form-control" id="bio" name="bio" rows="4" placeholder="Tell us about your background and why you want to mentor youth in SDG leadership..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Chapter Head fields -->
+                    <div id="chapter_head-fields" class="dynamic-fields">
+                        <h5><i class="fas fa-users-cog"></i> Chapter Head Information</h5>
+                        
+                        <div class="form-group">
+                            <label for="ch_organization" class="form-label">Organization/Institution</label>
+                            <input type="text" class="form-control" id="ch_organization" name="organization">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ch_phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="ch_phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="leadership_experience" class="form-label">Leadership Experience</label>
+                            <textarea class="form-control" id="leadership_experience" name="leadership_experience" rows="3" placeholder="Describe your leadership experience and vision for your local chapter..."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-register">
+                        <i class="fas fa-user-plus"></i> Create My Account
+                    </button>
+                </form>
+
+                <div class="login-link">
+                    <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // User type selection
+            const userTypeOptions = document.querySelectorAll('.user-type-option');
+            const userTypeInput = document.getElementById('user_type');
+            const dynamicFields = document.querySelectorAll('.dynamic-fields');
+
+            userTypeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active class from all options
+                    userTypeOptions.forEach(opt => opt.classList.remove('active'));
+                    
+                    // Add active class to clicked option
+                    this.classList.add('active');
+                    
+                    // Set hidden input value
+                    const userType = this.dataset.type;
+                    userTypeInput.value = userType;
+                    
+                    // Hide all dynamic fields
+                    dynamicFields.forEach(field => {
+                        field.classList.remove('show');
+                    });
+                    
+                    // Show relevant fields
+                    const relevantFields = document.getElementById(userType + '-fields');
+                    if (relevantFields) {
+                        setTimeout(() => {
+                            relevantFields.classList.add('show');
+                        }, 100);
+                    }
+                });
+            });
+
+            // SDG selection (for participants)
+            const sdgOptions = document.querySelectorAll('.sdg-option');
+            const chosenSdgInput = document.getElementById('chosen_sdg');
+
+            sdgOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    sdgOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Set hidden input value
+                    chosenSdgInput.value = this.dataset.sdg;
+                });
+            });
+
+            // Form validation
+            const form = document.getElementById('registrationForm');
+            form.addEventListener('submit', function(e) {
+                const userType = userTypeInput.value;
+                
+                if (!userType) {
+                    e.preventDefault();
+                    alert('Please select a user type (Participant, Mentor, or Chapter Head)');
+                    return;
+                }
+
+                if (userType === 'participant' && !chosenSdgInput.value) {
+                    e.preventDefault();
+                    alert('Please select your primary SDG focus');
+                    return;
+                }
+
+                // Basic password validation
+                const password = document.getElementById('password').value;
+                if (password.length < 6) {
+                    e.preventDefault();
+                    alert('Password must be at least 6 characters long');
+                    return;
+                }
+            });
+
+            // Enhanced form interactions
+            const formControls = document.querySelectorAll('.form-control');
+            formControls.forEach(control => {
+                control.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                control.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

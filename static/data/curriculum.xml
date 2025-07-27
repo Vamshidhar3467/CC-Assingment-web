@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curriculum xmlns="http://talyouth.org/curriculum" version="1.0">
+    <!-- Theme 1: Social Entrepreneurship (Weeks 1-4) -->
+    <theme name="social_entrepreneurship">
+        <title>Social Entrepreneurship</title>
+        <description>Learn to identify social problems and develop innovative business solutions that create positive impact while being financially sustainable.</description>
+        <weeks>4</weeks>
+        
+        <week number="1">
+            <title>SDGs + Design Thinking</title>
+            <description>Understand the UN Sustainable Development Goals and master human-centered design thinking methodology.</description>
+            <objectives>
+                <objective>Understand all 17 UN SDGs and their interconnections</objective>
+                <objective>Learn the 5 stages of design thinking</objective>
+                <objective>Practice empathy mapping and user research</objective>
+                <objective>Identify local problems related to chosen SDG</objective>
+            </objectives>
+            <activity>Introduction to UN SDGs and global challenges</activity>
+            <activity>Design thinking workshop and methodology</activity>
+            <activity>Empathy mapping exercise</activity>
+            <activity>Community problem identification</activity>
+            <activity>SDG selection and focus area definition</activity>
+            <resources>
+                <resource type="video" title="Introduction to SDGs" duration="15min" />
+                <resource type="pdf" title="Design Thinking Toolkit" pages="24" />
+                <resource type="worksheet" title="Empathy Map Template" />
+                <resource type="template" title="Problem Statement Canvas" />
+            </resources>
+        </week>
+        
+        <week number="2">
+            <title>Community Research</title>
+            <description>Conduct field research to identify real community needs and challenges.</description>
+            <objectives>
+                <objective>Design and conduct user interviews</objective>
+                <objective>Analyze community data and statistics</objective>
+                <objective>Create user personas and journey maps</objective>
+                <objective>Define problem statements clearly</objective>
+            </objectives>
+            <activity>User interview planning and execution</activity>
+            <activity>Community survey design</activity>
+            <activity>Data collection and analysis</activity>
+            <activity>User persona development</activity>
+            <activity>Problem statement refinement</activity>
+            <resources>
+                <resource type="template" title="Interview Guide Template" />
+                <resource type="video" title="Research Methodology" duration="20min" />
+                <resource type="worksheet" title="Data Analysis Framework" />
+                <resource type="guide" title="Creating User Personas" />
+            </resources>
+        </week>
+        
+        <week number="3">
+            <title>Business Model Canvas</title>
+            <description>Develop a sustainable business model for your social venture idea.</description>
+            <objectives>
+                <objective>Understand the 9 components of Business Model Canvas</objective>
+                <objective>Develop value propositions for your solution</objective>
+                <objective>Identify key partnerships and resources</objective>
+                <objective>Plan revenue streams and cost structure</objective>
+            </objectives>
+            <activity>Business Model Canvas workshop</activity>
+            <activity>Value proposition design</activity>
+            <activity>Customer segment analysis</activity>
+            <activity>Revenue model development</activity>
+            <activity>Partnership mapping</activity>
+            <resources>
+                <resource type="template" title="Business Model Canvas" />
+                <resource type="video" title="Guest Speaker: Social Entrepreneur" duration="30min" />
+                <resource type="worksheet" title="Value Proposition Canvas" />
+                <resource type="case-study" title="Successful Social Ventures" />
+            </resources>
+        </week>
+        
+        <week number="4">
+            <title>Pitch Preparation</title>
+            <description>Create and deliver a compelling pitch for your social enterprise.</description>
+            <objectives>
+                <objective>Structure an effective pitch presentation</objective>
+                <objective>Create compelling visual materials</objective>
+                <objective>Practice public speaking and presentation skills</objective>
+                <objective>Prepare for Q&A sessions</objective>
+            </objectives>
+            <activity>Pitch deck creation</activity>
+            <activity>Storytelling workshop</activity>
+            <activity>Presentation practice sessions</activity>
+            <activity>Peer feedback and improvement</activity>
+            <activity>Final pitch presentation</activity>
+            <resources>
+                <resource type="template" title="Pitch Deck Template" />
+                <resource type="video" title="Effective Presentation Skills" duration="25min" />
+                <resource type="checklist" title="Pitch Evaluation Criteria" />
+                <resource type="guide" title="Handling Q&A Sessions" />
+            </resources>
+        </week>
+    </theme>
+    
+    <!-- Theme 2: Social Advocacy (Weeks 5-8) -->
+    <theme name="social_advocacy">
+        <title>Social Advocacy</title>
+        <description>Master the art of advocacy and learn to drive systemic change through strategic communication, policy engagement, and community mobilization.</description>
+        <weeks>4</weeks>
+        
+        <week number="5">
+            <title>Advocacy Fundamentals</title>
+            <description>Learn the principles of effective advocacy and stakeholder mapping.</description>
+            <objectives>
+                <objective>Understand different types of advocacy approaches</objective>
+                <objective>Learn stakeholder analysis and mapping</objective>
+                <objective>Develop advocacy strategy framework</objective>
+                <objective>Identify key decision makers and influencers</objective>
+            </objectives>
+            <activity>Advocacy strategy workshop</activity>
+            <activity>Stakeholder mapping exercise</activity>
+            <activity>Power analysis activities</activity>
+            <activity>Message development framework</activity>
+            <activity>Theory of change creation</activity>
+            <resources>
+                <resource type="guide" title="Advocacy Strategy Handbook" />
+                <resource type="template" title="Stakeholder Map Template" />
+                <resource type="video" title="Successful Advocacy Examples" duration="18min" />
+                <resource type="worksheet" title="Theory of Change Canvas" />
+            </resources>
+        </week>
+        
+        <week number="6">
+            <title>Digital Campaigns</title>
+            <description>Create compelling digital content and social media campaigns.</description>
+            <objectives>
+                <objective>Design effective social media strategies</objective>
+                <objective>Create engaging visual and written content</objective>
+                <objective>Understand digital platform algorithms</objective>
+                <objective>Measure and analyze campaign performance</objective>
+            </objectives>
+            <activity>Social media strategy development</activity>
+            <activity>Content creation workshop</activity>
+            <activity>Hashtag research and optimization</activity>
+            <activity>Influencer identification and outreach</activity>
+            <activity>Campaign launch planning</activity>
+            <resources>
+                <resource type="template" title="Content Calendar Template" />
+                <resource type="guide" title="Social Media Best Practices" />
+                <resource type="tool" title="Design Templates (Canva)" />
+                <resource type="checklist" title="Campaign Launch Checklist" />
+            </resources>
+        </week>
+        
+        <week number="7">
+            <title>Policy & Governance</title>
+            <description>Understand policy processes and engage with decision-makers.</description>
+            <objectives>
+                <objective>Learn how policy-making processes work</objective>
+                <objective>Understand different levels of government</objective>
+                <objective>Practice writing policy briefs and proposals</objective>
+                <objective>Develop skills for engaging with officials</objective>
+            </objectives>
+            <activity>Policy process mapping</activity>
+            <activity>Policy brief writing workshop</activity>
+            <activity>Meeting with local officials (virtual)</activity>
+            <activity>Coalition building exercises</activity>
+            <activity>Advocacy letter writing</activity>
+            <resources>
+                <resource type="template" title="Policy Brief Template" />
+                <resource type="guide" title="Engaging with Government Officials" />
+                <resource type="video" title="Policy Making Process" duration="22min" />
+                <resource type="template" title="Advocacy Letter Template" />
+            </resources>
+        </week>
+        
+        <week number="8">
+            <title>Campaign Launch</title>
+            <description>Execute your advocacy campaign and measure its impact.</description>
+            <objectives>
+                <objective>Launch coordinated advocacy campaign</objective>
+                <objective>Mobilize supporters and volunteers</objective>
+                <objective>Track and measure campaign metrics</objective>
+                <objective>Adapt strategy based on feedback</objective>
+            </objectives>
+            <activity>Campaign launch execution</activity>
+            <activity>Media outreach and engagement</activity>
+            <activity>Community mobilization activities</activity>
+            <activity>Impact measurement and analysis</activity>
+            <activity>Campaign evaluation and lessons learned</activity>
+            <resources>
+                <resource type="checklist" title="Launch Day Checklist" />
+                <resource type="template" title="Media Advisory Template" />
+                <resource type="tool" title="Analytics Dashboard Setup" />
+                <resource type="worksheet" title="Impact Assessment Form" />
+            </resources>
+        </week>
+    </theme>
+    
+    <!-- Theme 3: Philanthropy & Volunteering (Weeks 9-12) -->
+    <theme name="philanthropy_volunteering">
+        <title>Philanthropy & Volunteering</title>
+        <description>Develop strategic philanthropic thinking and hands-on volunteering skills to create lasting community impact through service and giving.</description>
+        <weeks>4</weeks>
+        
+        <week number="9">
+            <title>Strategic Philanthropy</title>
+            <description>Learn effective giving strategies and impact measurement.</description>
+            <objectives>
+                <objective>Understand different models of philanthropy</objective>
+                <objective>Learn impact measurement frameworks</objective>
+                <objective>Develop strategic giving plans</objective>
+                <objective>Explore innovative funding mechanisms</objective>
+            </objectives>
+            <activity>Philanthropy landscape analysis</activity>
+            <activity>Impact measurement workshop</activity>
+            <activity>Strategic giving plan development</activity>
+            <activity>Due diligence framework creation</activity>
+            <activity>Innovative funding exploration</activity>
+            <resources>
+                <resource type="guide" title="Strategic Philanthropy Handbook" />
+                <resource type="template" title="Giving Strategy Template" />
+                <resource type="video" title="Impact Measurement Methods" duration="28min" />
+                <resource type="case-study" title="Effective Philanthropy Examples" />
+            </resources>
+        </week>
+        
+        <week number="10">
+            <title>Volunteer Leadership</title>
+            <description>Design and lead meaningful volunteer projects in your community.</description>
+            <objectives>
+                <objective>Design effective volunteer programs</objective>
+                <objective>Recruit and manage volunteer teams</objective>
+                <objective>Create meaningful volunteer experiences</objective>
+                <objective>Measure volunteer impact and satisfaction</objective>
+            </objectives>
+            <activity>Volunteer program design workshop</activity>
+            <activity>Recruitment strategy development</activity>
+            <activity>Training program creation</activity>
+            <activity>Team leadership skills practice</activity>
+            <activity>Volunteer project execution</activity>
+            <resources>
+                <resource type="template" title="Volunteer Program Template" />
+                <resource type="guide" title="Volunteer Management Best Practices" />
+                <resource type="checklist" title="Volunteer Event Planning" />
+                <resource type="tool" title="Volunteer Tracking System" />
+            </resources>
+        </week>
+        
+        <week number="11">
+            <title>Fundraising Mastery</title>
+            <description>Master modern fundraising techniques and donor engagement.</description>
+            <objectives>
+                <objective>Learn diverse fundraising strategies</objective>
+                <objective>Develop compelling fundraising materials</objective>
+                <objective>Practice donor engagement techniques</objective>
+                <objective>Understand legal and ethical considerations</objective>
+            </objectives>
+            <activity>Fundraising strategy workshop</activity>
+            <activity>Donor persona development</activity>
+            <activity>Fundraising materials creation</activity>
+            <activity>Pitch practice sessions</activity>
+            <activity>Crowdfunding campaign setup</activity>
+            <resources>
+                <resource type="template" title="Fundraising Plan Template" />
+                <resource type="guide" title="Donor Engagement Strategies" />
+                <resource type="video" title="Successful Fundraising Examples" duration="25min" />
+                <resource type="checklist" title="Legal Compliance Checklist" />
+            </resources>
+        </week>
+        
+        <week number="12">
+            <title>Impact Showcase</title>
+            <description>Present your complete impact portfolio and graduation.</description>
+            <objectives>
+                <objective>Compile comprehensive impact portfolio</objective>
+                <objective>Create final presentation showcase</objective>
+                <objective>Reflect on learning journey</objective>
+                <objective>Plan future leadership activities</objective>
+            </objectives>
+            <activity>Impact portfolio compilation</activity>
+            <activity>Final presentation preparation</activity>
+            <activity>Peer showcase sessions</activity>
+            <activity>Reflection and goal setting</activity>
+            <activity>Graduation ceremony</activity>
+            <resources>
+                <resource type="template" title="Impact Portfolio Template" />
+                <resource type="guide" title="Creating Effective Presentations" />
+                <resource type="certificate" title="Program Completion Certificate" />
+                <resource type="planning-tool" title="Future Leadership Plan" />
+            </resources>
+        </week>
+    </theme>
+</curriculum>

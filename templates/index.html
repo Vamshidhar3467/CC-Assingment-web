@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-3">TALYOUTH SDG Leadership Program</h1>
+                <p class="lead mb-4">Empowering young leaders to create sustainable change in their communities through the UN Sustainable Development Goals.</p>
+                <div class="d-flex gap-3">
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.user_type == 'participant' %}
+                            <a href="{{ url_for('video_library') }}" class="btn btn-light btn-lg">
+                                <i class="bi bi-play-circle"></i> Continue Learning
+                            </a>
+                        {% elif current_user.user_type == 'mentor' %}
+                            <a href="{{ url_for('mentor_dashboard') }}" class="btn btn-light btn-lg">
+                                <i class="bi bi-person-check"></i> Mentor Dashboard
+                            </a>
+                        {% endif %}
+                        <a href="{{ url_for('learning_hub') }}" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-book"></i> Learning Hub
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">
+                            <i class="bi bi-person-plus"></i> Join Program
+                        </a>
+                        <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600" 
+                     alt="Young leaders working together" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Courses Section -->
+{% if recent_courses %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2><i class="bi bi-play-circle text-primary"></i> Featured SDG Courses</h2>
+            <p class="text-muted">Explore our comprehensive video courses focused on Sustainable Development Goals</p>
+        </div>
+        
+        <div class="row">
+            {% for course in recent_courses %}
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100">
+                        <div class="video-thumbnail">
+                            <img src="{{ course.thumbnail_url }}" alt="{{ course.title }}" class="card-img-top">
+                            <div class="position-absolute top-0 start-0 m-2">
+                                <span class="badge bg-primary">SDG {{ course.sdg_focus }}</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.title }}</h5>
+                            <p class="card-text">{{ course.description[:100] }}...</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="bi bi-clock"></i> {{ course.duration_weeks }} weeks •
+                                    <i class="bi bi-play-fill"></i> {{ course.videos.count() }} videos
+                                </small>
+                                {% if current_user.is_authenticated and current_user.user_type in ['participant', 'mentor'] %}
+                                    <a href="{{ url_for('course_detail', course_id=course.id) }}" class="btn btn-primary btn-sm">
+                                        Start Course
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-sm">
+                                        Join to Access
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        {% if current_user.is_authenticated and current_user.user_type in ['participant', 'mentor'] %}
+            <div class="text-center">
+                <a href="{{ url_for('video_library') }}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-collection-play"></i> View All Courses
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Program Features -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>Program Features</h2>
+            <p class="text-muted">Comprehensive learning experience for sustainable development</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="bi bi-play-circle display-3 text-primary mb-3"></i>
+                        <h5>Video Learning</h5>
+                        <p>Engaging video courses on SDG 2 (Zero Hunger) and SDG 3 (Good Health) with 2-3 videos per week</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="bi bi-person-check display-3 text-success mb-3"></i>
+                        <h5>Mentor Support</h5>
+                        <p>Experienced mentors provide guidance, feedback, and support throughout your learning journey</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="bi bi-award display-3 text-warning mb-3"></i>
+                        <h5>Progress Tracking</h5>
+                        <p>Track your progress, complete weekly reflections, and earn achievements as you advance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SDG Focus -->
+{% if sdgs %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>Our SDG Focus</h2>
+            <p class="text-muted">Contributing to the United Nations Sustainable Development Goals</p>
+        </div>
+        
+        <div class="row">
+            {% for sdg in sdgs[:6] %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" 
+                                 style="width: 80px; height: 80px; background-color: {{ sdg.color }};">
+                                <span class="text-white fw-bold fs-4">{{ sdg.number }}</span>
+                            </div>
+                            <h5>{{ sdg.title }}</h5>
+                            <p class="text-muted small">{{ sdg.description[:100] }}...</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Call to Action -->
+{% if not current_user.is_authenticated %}
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2>Ready to Make a Difference?</h2>
+        <p class="lead mb-4">Join thousands of young leaders creating positive change in their communities</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">
+                <i class="bi bi-person-plus"></i> Join as Participant
+            </a>
+            <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg">
+                <i class="bi bi-person-check"></i> Become a Mentor
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

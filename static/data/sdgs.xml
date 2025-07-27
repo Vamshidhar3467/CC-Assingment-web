@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdgs xmlns="http://talyouth.org/sdgs" version="1.0">
+    <sdg number="1">
+        <title>No Poverty</title>
+        <description>End poverty in all its forms everywhere by promoting economic growth, social protection systems, and sustainable livelihoods.</description>
+        <color>#E5243B</color>
+        <targets>7</targets>
+        <examples>
+            <example>Microfinance programs for entrepreneurs</example>
+            <example>Social safety net advocacy</example>
+            <example>Financial literacy education</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="2">
+        <title>Zero Hunger</title>
+        <description>End hunger, achieve food security and improved nutrition, and promote sustainable agriculture worldwide.</description>
+        <color>#DDA63A</color>
+        <targets>8</targets>
+        <examples>
+            <example>Community garden initiatives</example>
+            <example>Food waste reduction programs</example>
+            <example>Nutrition education campaigns</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="3">
+        <title>Good Health and Well-being</title>
+        <description>Ensure healthy lives and promote well-being for all at all ages through healthcare access and health promotion.</description>
+        <color>#4C9F38</color>
+        <targets>13</targets>
+        <examples>
+            <example>Mental health awareness campaigns</example>
+            <example>Health clinic volunteer programs</example>
+            <example>Disease prevention education</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="4">
+        <title>Quality Education</title>
+        <description>Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all.</description>
+        <color>#C5192D</color>
+        <targets>10</targets>
+        <examples>
+            <example>Digital literacy programs</example>
+            <example>Tutoring and mentorship initiatives</example>
+            <example>Educational resource development</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="5">
+        <title>Gender Equality</title>
+        <description>Achieve gender equality and empower all women and girls through equal rights and opportunities.</description>
+        <color>#FF3A21</color>
+        <targets>9</targets>
+        <examples>
+            <example>Women's leadership development</example>
+            <example>Anti-discrimination advocacy</example>
+            <example>Girls' education support programs</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="6">
+        <title>Clean Water and Sanitation</title>
+        <description>Ensure availability and sustainable management of water and sanitation for all communities.</description>
+        <color>#26BDE2</color>
+        <targets>8</targets>
+        <examples>
+            <example>Water conservation projects</example>
+            <example>Sanitation facility construction</example>
+            <example>Water quality testing initiatives</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="7">
+        <title>Affordable and Clean Energy</title>
+        <description>Ensure access to affordable, reliable, sustainable and modern energy for all people.</description>
+        <color>#FCC30B</color>
+        <targets>5</targets>
+        <examples>
+            <example>Solar energy installation projects</example>
+            <example>Energy efficiency campaigns</example>
+            <example>Renewable energy advocacy</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="8">
+        <title>Decent Work and Economic Growth</title>
+        <description>Promote sustained, inclusive and sustainable economic growth, full employment and decent work for all.</description>
+        <color>#A21942</color>
+        <targets>12</targets>
+        <examples>
+            <example>Youth entrepreneurship programs</example>
+            <example>Skills training initiatives</example>
+            <example>Fair labor advocacy</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="9">
+        <title>Industry, Innovation and Infrastructure</title>
+        <description>Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation.</description>
+        <color>#FD6925</color>
+        <targets>8</targets>
+        <examples>
+            <example>Technology access programs</example>
+            <example>Innovation lab creation</example>
+            <example>Infrastructure development projects</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="10">
+        <title>Reduced Inequalities</title>
+        <description>Reduce inequality within and among countries through inclusive policies and equal opportunities.</description>
+        <color>#DD1367</color>
+        <targets>10</targets>
+        <examples>
+            <example>Social inclusion advocacy</example>
+            <example>Accessibility improvement projects</example>
+            <example>Anti-discrimination campaigns</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="11">
+        <title>Sustainable Cities and Communities</title>
+        <description>Make cities and human settlements inclusive, safe, resilient and sustainable for all residents.</description>
+        <color>#FD9D24</color>
+        <targets>10</targets>
+        <examples>
+            <example>Urban planning initiatives</example>
+            <example>Public transportation advocacy</example>
+            <example>Green space development</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="12">
+        <title>Responsible Consumption and Production</title>
+        <description>Ensure sustainable consumption and production patterns through responsible resource use.</description>
+        <color>#BF8B2E</color>
+        <targets>11</targets>
+        <examples>
+            <example>Waste reduction campaigns</example>
+            <example>Sustainable product promotion</example>
+            <example>Circular economy initiatives</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="13">
+        <title>Climate Action</title>
+        <description>Take urgent action to combat climate change and its impacts through mitigation and adaptation.</description>
+        <color>#3F7E44</color>
+        <targets>5</targets>
+        <examples>
+            <example>Climate awareness campaigns</example>
+            <example>Carbon footprint reduction</example>
+            <example>Environmental restoration projects</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="14">
+        <title>Life Below Water</title>
+        <description>Conserve and sustainably use the oceans, seas and marine resources for sustainable development.</description>
+        <color>#0A97D9</color>
+        <targets>10</targets>
+        <examples>
+            <example>Marine conservation projects</example>
+            <example>Plastic pollution cleanup</example>
+            <example>Sustainable fishing advocacy</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="15">
+        <title>Life on Land</title>
+        <description>Protect, restore and promote sustainable use of terrestrial ecosystems and biodiversity.</description>
+        <color>#56C02B</color>
+        <targets>12</targets>
+        <examples>
+            <example>Reforestation initiatives</example>
+            <example>Wildlife conservation programs</example>
+            <example>Biodiversity protection advocacy</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="16">
+        <title>Peace, Justice and Strong Institutions</title>
+        <description>Promote peaceful and inclusive societies, access to justice and effective institutions.</description>
+        <color>#00689D</color>
+        <targets>12</targets>
+        <examples>
+            <example>Community mediation programs</example>
+            <example>Human rights advocacy</example>
+            <example>Transparency and accountability initiatives</example>
+        </examples>
+    </sdg>
+    
+    <sdg number="17">
+        <title>Partnerships for the Goals</title>
+        <description>Strengthen the means of implementation and revitalize global partnerships for sustainable development.</description>
+        <color>#19486A</color>
+        <targets>19</targets>
+        <examples>
+            <example>Multi-stakeholder collaboration</example>
+            <example>Knowledge sharing platforms</example>
+            <example>Resource mobilization campaigns</example>
+        </examples>
+    </sdg>
+</sdgs>

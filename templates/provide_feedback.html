@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provide Feedback - TALYOUTH SDG Leadership Program</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2E8B57;
+            --secondary-color: #FFD700;
+            --accent-color: #FF6B35;
+            --text-dark: #2C3E50;
+            --text-light: #7F8C8D;
+            --bg-light: #F8F9FA;
+            --mentor-color: #8B4513;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: white !important;
+        }
+
+        .hero-section {
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D);
+            color: white;
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content-section {
+            padding: 3rem 0;
+        }
+
+        .feedback-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .participant-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .participant-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #E9ECEF;
+        }
+
+        .participant-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary-color), #20B2AA);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .participant-info h2 {
+            margin: 0;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+        }
+
+        .participant-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .progress-overview {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+
+        .feedback-form {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-control {
+            border: 2px solid #E9ECEF;
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .form-control:focus {
+            border-color: var(--mentor-color);
+            box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
+            outline: none;
+        }
+
+        .form-control.is-invalid {
+            border-color: #dc3545;
+        }
+
+        .invalid-feedback {
+            display: block;
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .rating-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .rating-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+        }
+
+        .rating-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .rating-stars {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .star {
+            font-size: 1.5rem;
+            color: #E9ECEF;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .star:hover,
+        .star.active {
+            color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .rating-description {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .textarea-group {
+            position: relative;
+        }
+
+        .textarea-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #E9ECEF;
+        }
+
+        .btn-mentor {
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D);
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-mentor:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+            color: white;
+        }
+
+        .btn-mentor:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-outline-mentor {
+            border: 2px solid var(--mentor-color);
+            color: var(--mentor-color);
+            border-radius: 10px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: transparent;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-outline-mentor:hover {
+            background: var(--mentor-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .week-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .week-option {
+            position: relative;
+        }
+
+        .week-option input[type="radio"] {
+            display: none;
+        }
+
+        .week-option label {
+            display: block;
+            padding: 1rem;
+            text-align: center;
+            border: 2px solid #E9ECEF;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .week-option input[type="radio"]:checked + label {
+            border-color: var(--mentor-color);
+            background: rgba(139, 69, 19, 0.1);
+            color: var(--mentor-color);
+        }
+
+        .week-option label:hover {
+            border-color: var(--mentor-color);
+            transform: translateY(-2px);
+        }
+
+        .week-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .week-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .feedback-tips {
+            background: linear-gradient(45deg, rgba(46, 139, 87, 0.1), rgba(32, 178, 170, 0.1));
+            border-left: 4px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tips-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .tips-list {
+            margin: 0;
+            padding-left: 1rem;
+            color: var(--text-dark);
+        }
+
+        .tips-list li {
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .spinner-border {
+            color: var(--mentor-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .participant-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .participant-meta {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .progress-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .rating-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .week-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .alert {
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .success-message {
+            background: linear-gradient(45deg, rgba(46, 139, 87, 0.1), rgba(32, 178, 170, 0.1));
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .error-message {
+            background: rgba(220, 53, 69, 0.1);
+            border: 2px solid #dc3545;
+            color: #dc3545;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-leaf"></i> TALYOUTH
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('mentor_dashboard') }}">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="fas fa-comment-alt"></i> Provide Feedback
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('video_library') }}">
+                            <i class="fas fa-play-circle"></i> Video Library
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> {{ current_user.first_name }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content text-center">
+                <h1><i class="fas fa-comment-alt"></i> Provide Feedback</h1>
+                <p>Help guide and support your participant's learning journey</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="feedback-container">
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                                <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'info-circle' }}"></i>
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Participant Information -->
+                <div class="participant-card">
+                    <div class="participant-header">
+                        <div class="participant-avatar">
+                            {{ participant.user.first_name[0] }}{{ participant.user.last_name[0] }}
+                        </div>
+                        <div class="participant-info">
+                            <h2>{{ participant.user.get_full_name() }}</h2>
+                            <div class="participant-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-globe"></i>
+                                    <span>SDG {{ participant.chosen_sdg }}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-school"></i>
+                                    <span>{{ participant.school_organization or 'School not specified' }}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Week {{ participant.current_week }}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>{{ participant.user.email }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Overview -->
+                    <div class="progress-overview">
+                        <div class="progress-title">
+                            <i class="fas fa-chart-line"></i> Progress Overview
+                        </div>
+                        <div class="progress-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">{{ participant.progress_percentage }}%</div>
+                                <div class="stat-label">Overall Progress</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">{{ participant.completed_videos }}</div>
+                                <div class="stat-label">Videos Completed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">{{ participant.current_week }}</div>
+                                <div class="stat-label">Current Week</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">{{ participant.feedback_count }}</div>
+                                <div class="stat-label">Feedback Received</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback Tips -->
+                <div class="feedback-tips">
+                    <div class="tips-title">
+                        <i class="fas fa-lightbulb"></i> Effective Feedback Tips
+                    </div>
+                    <ul class="tips-list">
+                        <li>Be specific and constructive in your comments</li>
+                        <li>Highlight both strengths and areas for improvement</li>
+                        <li>Provide actionable suggestions for next steps</li>
+                        <li>Connect feedback to SDG goals and real-world applications</li>
+                        <li>Encourage reflection and critical thinking</li>
+                    </ul>
+                </div>
+
+                <!-- Feedback Form -->
+                <form method="POST" action="{{ url_for('submit_feedback') }}" class="feedback-form" id="feedbackForm">
+                    <input type="hidden" name="participant_id" value="{{ participant.id }}">
+                    
+                    <!-- Week Selection -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-calendar-week"></i> Select Week
+                        </h3>
+                        <div class="week-selector">
+                            {% for week in range(1, 5) %}
+                                <div class="week-option">
+                                    <input type="radio" id="week{{ week }}" name="week_number" value="{{ week }}" 
+                                           {% if week == participant.current_week %}checked{% endif %} required>
+                                    <label for="week{{ week }}">
+                                        <div class="week-number">{{ week }}</div>
+                                        <div class="week-label">Week</div>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Performance Ratings -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-star"></i> Performance Ratings
+                        </h3>
+                        <div class="rating-section">
+                            <div class="rating-item">
+                                <div class="rating-label">Participation</div>
+                                <div class="rating-stars" data-rating="participation_rating">
+                                    {% for i in range(1, 6) %}
+                                        <i class="fas fa-star star" data-value="{{ i }}"></i>
+                                    {% endfor %}
+                                </div>
+                                <div class="rating-description">Engagement in activities and discussions</div>
+                                <input type="hidden" name="participation_rating" value="" required>
+                            </div>
+                            
+                            <div class="rating-item">
+                                <div class="rating-label">Creativity</div>
+                                <div class="rating-stars" data-rating="creativity_rating">
+                                    {% for i in range(1, 6) %}
+                                        <i class="fas fa-star star" data-value="{{ i }}"></i>
+                                    {% endfor %}
+                                </div>
+                                <div class="rating-description">Innovation and original thinking</div>
+                                <input type="hidden" name="creativity_rating" value="" required>
+                            </div>
+                            
+                            <div class="rating-item">
+                                <div class="rating-label">Initiative</div>
+                                <div class="rating-stars" data-rating="initiative_rating">
+                                    {% for i in range(1, 6) %}
+                                        <i class="fas fa-star star" data-value="{{ i }}"></i>
+                                    {% endfor %}
+                                </div>
+                                <div class="rating-description">Proactive approach and leadership</div>
+                                <input type="hidden" name="initiative_rating" value="" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Feedback -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-comments"></i> Detailed Feedback
+                        </h3>
+                        
+                        <div class="form-group">
+                            <label for="strengths" class="form-label">Strengths and Achievements</label>
+                            <div class="textarea-group">
+                                <textarea class="form-control" id="strengths" name="strengths" rows="4" 
+                                          placeholder="Highlight what the participant did well this week..." 
+                                          maxlength="500" required></textarea>
+                                <div class="textarea-counter">
+                                    <span id="strengthsCounter">0</span>/500
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="improvements" class="form-label">Areas for Improvement</label>
+                            <div class="textarea-group">
+                                <textarea class="form-control" id="improvements" name="improvements" rows="4" 
+                                          placeholder="Suggest specific areas where the participant can improve..." 
+                                          maxlength="500" required></textarea>
+                                <div class="textarea-counter">
+                                    <span id="improvementsCounter">0</span>/500
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="next_steps" class="form-label">Suggested Next Steps</label>
+                            <div class="textarea-group">
+                                <textarea class="form-control" id="next_steps" name="next_steps" rows="4" 
+                                          placeholder="Provide actionable recommendations for the upcoming week..." 
+                                          maxlength="500" required></textarea>
+                                <div class="textarea-counter">
+                                    <span id="nextStepsCounter">0</span>/500
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="sdg_connection" class="form-label">SDG Connection & Real-World Application</label>
+                            <div class="textarea-group">
+                                <textarea class="form-control" id="sdg_connection" name="sdg_connection" rows="3" 
+                                          placeholder="How does their work connect to SDG goals and real-world impact..." 
+                                          maxlength="300"></textarea>
+                                <div class="textarea-counter">
+                                    <span id="sdgConnectionCounter">0</span>/300
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Comments -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-plus-circle"></i> Additional Comments
+                        </h3>
+                        
+                        <div class="form-group">
+                            <label for="additional_comments" class="form-label">Additional Notes (Optional)</label>
+                            <div class="textarea-group">
+                                <textarea class="form-control" id="additional_comments" name="additional_comments" rows="3" 
+                                          placeholder="Any other observations, encouragement, or resources to share..." 
+                                          maxlength="300"></textarea>
+                                <div class="textarea-counter">
+                                    <span id="additionalCommentsCounter">0</span>/300
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Loading Spinner -->
+                    <div class="loading-spinner" id="loadingSpinner">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Submitting feedback...</span>
+                        </div>
+                        <p class="mt-2">Submitting your feedback...</p>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn-outline-mentor" onclick="window.history.back()">
+                            <i class="fas fa-arrow-left"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn-mentor" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> Submit Feedback
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Star rating functionality
+            const ratingContainers = document.querySelectorAll('.rating-stars');
+            
+            ratingContainers.forEach(container => {
+                const stars = container.querySelectorAll('.star');
+                const ratingName = container.getAttribute('data-rating');
+                const hiddenInput = document.querySelector(`input[name="${ratingName}"]`);
+                
+                stars.forEach((star, index) => {
+                    star.addEventListener('click', function() {
+                        const rating = index + 1;
+                        hiddenInput.value = rating;
+                        
+                        // Update star display
+                        stars.forEach((s, i) => {
+                            if (i < rating) {
+                                s.classList.add('active');
+                            } else {
+                                s.classList.remove('active');
+                            }
+                        });
+                    });
+                    
+                    star.addEventListener('mouseenter', function() {
+                        const rating = index + 1;
+                        stars.forEach((s, i) => {
+                            if (i < rating) {
+                                s.style.color = '#FFD700';
+                            } else {
+                                s.style.color = '#E9ECEF';
+                            }
+                        });
+                    });
+                });
+                
+                container.addEventListener('mouseleave', function() {
+                    const currentRating = parseInt(hiddenInput.value) || 0;
+                    stars.forEach((s, i) => {
+                        if (i < currentRating) {
+                            s.style.color = '#FFD700';
+                            s.classList.add('active');
+                        } else {
+                            s.style.color = '#E9ECEF';
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            
+            // Character counters
+            const textareas = document.querySelectorAll('textarea[maxlength]');
+            textareas.forEach(textarea => {
+                const counterId = textarea.id + 'Counter';
+                const counter = document.getElementById(counterId);
+                
+                if (counter) {
+                    textarea.addEventListener('input', function() {
+                        const count = this.value.length;
+                        const maxLength = this.getAttribute('maxlength');
+                        counter.textContent = count;
+                        
+                        if (count > maxLength * 0.9) {
+                            counter.style.color = '#FF6B35';
+                        } else {
+                            counter.style.color = '#7F8C8D';
+                        }
+                    });
+                }
+            });
+            
+            // Form submission
+            const form = document.getElementById('feedbackForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            form.addEventListener('submit', function(e) {
+                // Validate required ratings
+                const requiredRatings = ['participation_rating', 'creativity_rating', 'initiative_rating'];
+                let hasError = false;
+                
+                requiredRatings.forEach(rating => {
+                    const input = document.querySelector(`input[name="${rating}"]`);
+                    if (!input.value) {
+                        hasError = true;
+                        const container = document.querySelector(`[data-rating="${rating}"]`);
+                        container.style.border = '2px solid #dc3545';
+                        container.style.borderRadius = '8px';
+                        container.style.padding = '0.5rem';
+                    }
+                });
+                
+                if (hasError) {
+                    e.preventDefault();
+                    alert('Please provide ratings for all performance areas.');
+                    return;
+                }
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+                loadingSpinner.style.display = 'block';
+            });
+            
+            // Form validation feedback
+            const requiredFields = form.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                field.addEventListener('blur', function() {
+                    if (this.value.trim() === '') {
+                        this.classList.add('is-invalid');
+                    } else {
+                        this.classList.remove('is-invalid');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

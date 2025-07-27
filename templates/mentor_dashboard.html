@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Dashboard - TALYOUTH SDG Leadership Program</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2E8B57;
+            --secondary-color: #FFD700;
+            --accent-color: #FF6B35;
+            --text-dark: #2C3E50;
+            --text-light: #7F8C8D;
+            --bg-light: #F8F9FA;
+            --mentor-color: #8B4513;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: white !important;
+        }
+
+        .hero-section {
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D);
+            color: white;
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .mentor-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .mentor-avatar {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .mentor-details h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .mentor-details p {
+            margin: 0;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .approval-status {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: auto;
+        }
+
+        .content-section {
+            padding: 3rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D);
+        }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--mentor-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .participants-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .participant-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 2px solid #E9ECEF;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .participant-item:hover {
+            border-color: var(--mentor-color);
+            background-color: rgba(139, 69, 19, 0.05);
+            transform: translateX(5px);
+        }
+
+        .participant-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .participant-info {
+            flex: 1;
+        }
+
+        .participant-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .participant-details {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .participant-progress {
+            text-align: right;
+        }
+
+        .progress-percentage {
+            font-weight: bold;
+            color: var(--mentor-color);
+            font-size: 1.1rem;
+        }
+
+        .progress-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .progress-bar-small {
+            width: 80px;
+            height: 6px;
+            background: #E9ECEF;
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-bar-small .progress {
+            height: 100%;
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .feedback-form {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            border: 2px solid #E9ECEF;
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--mentor-color);
+            box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
+        }
+
+        .rating-input {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .rating-stars {
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .star {
+            font-size: 1.2rem;
+            color: #E9ECEF;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .star.active {
+            color: var(--secondary-color);
+        }
+
+        .btn-mentor {
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D);
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-mentor:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-outline-mentor {
+            border: 2px solid var(--mentor-color);
+            color: var(--mentor-color);
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: transparent;
+            text-decoration: none;
+        }
+
+        .btn-outline-mentor:hover {
+            background: var(--mentor-color);
+            color: white;
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .resources-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #E9ECEF;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            border-color: var(--mentor-color);
+            background-color: rgba(139, 69, 19, 0.05);
+        }
+
+        .resource-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .resource-info {
+            flex: 1;
+        }
+
+        .resource-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .resource-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: white;
+            border: 2px solid #E9ECEF;
+            border-radius: 12px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .action-btn:hover {
+            border-color: var(--mentor-color);
+            background: rgba(139, 69, 19, 0.05);
+            color: var(--mentor-color);
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--mentor-color), #A0522D);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .schedule-time {
+            font-weight: bold;
+            color: var(--mentor-color);
+            min-width: 80px;
+        }
+
+        .schedule-details {
+            flex: 1;
+        }
+
+        .schedule-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .schedule-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .participant-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+            
+            .participant-details {
+                justify-content: center;
+            }
+            
+            .mentor-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .alert {
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-leaf"></i> TALYOUTH
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('mentor_dashboard') }}">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('video_library') }}">
+                            <i class="fas fa-play-circle"></i> Video Library
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('learning_hub') }}">
+                            <i class="fas fa-graduation-cap"></i> Resources
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> {{ current_user.first_name }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">
+                                <i class="fas fa-user-edit"></i> Edit Profile
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1><i class="fas fa-chalkboard-teacher"></i> Mentor Dashboard</h1>
+                <p>Guide and inspire the next generation of SDG leaders</p>
+                
+                <div class="mentor-info">
+                    <div class="mentor-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="mentor-details">
+                        <h3>{{ current_user.get_full_name() }}</h3>
+                        <p>{% if mentor_profile.organization %}{{ mentor_profile.organization }} • {% endif %}Mentor since {{ current_user.created_at.strftime('%B %Y') }}</p>
+                    </div>
+                    <div class="approval-status">
+                        <i class="fas fa-check-circle"></i> Approved Mentor
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="container">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                            <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'info-circle' }}"></i>
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Statistics Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">{{ assigned_participants|length }}</div>
+                    <div class="stat-label">Assigned Participants</div>
+                    <div class="stat-description">Currently mentoring</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-number">{{ mentor_feedbacks|length }}</div>
+                    <div class="stat-label">Feedback Given</div>
+                    <div class="stat-description">Total feedback sessions</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-number">
+                        {% if assigned_participants %}
+                            {{ (assigned_participants|sum(attribute='progress_percentage') / assigned_participants|length)|round|int }}%
+                        {% else %}
+                            0%
+                        {% endif %}
+                    </div>
+                    <div class="stat-label">Average Progress</div>
+                    <div class="stat-description">Of your participants</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-number">{{ current_user.last_login.strftime('%d') if current_user.last_login else '0' }}</div>
+                    <div class="stat-label">Days Active</div>
+                    <div class="stat-description">This month</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Main Content -->
+                <div class="main-content">
+                    <!-- Assigned Participants -->
+                    <div class="card">
+                        <h2 class="card-title">
+                            <i class="fas fa-users"></i> My Participants
+                        </h2>
+                        
+                        {% if assigned_participants %}
+                            <div class="participants-list">
+                                {% for participant in assigned_participants %}
+                                    <div class="participant-item" onclick="showParticipantDetails({{ participant.id }})">
+                                        <div class="participant-avatar">
+                                            {{ participant.user.first_name[0] }}{{ participant.user.last_name[0] }}
+                                        </div>
+                                        <div class="participant-info">
+                                            <div class="participant-name">{{ participant.user.get_full_name() }}</div>
+                                            <div class="participant-details">
+                                                <span><i class="fas fa-globe"></i> SDG {{ participant.chosen_sdg }}</span>
+                                                <span><i class="fas fa-school"></i> {{ participant.school_organization or 'No school listed' }}</span>
+                                                <span><i class="fas fa-calendar"></i> Week {{ participant.current_week }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="participant-progress">
+                                            <div class="progress-percentage">{{ participant.progress_percentage }}%</div>
+                                            <div class="progress-label">Complete</div>
+                                            <div class="progress-bar-small">
+                                                <div class="progress" style="width: {{ participant.progress_percentage }}%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            
+                            <!-- Quick Feedback Form -->
+                            <div class="feedback-form">
+                                <h4><i class="fas fa-comment-alt"></i> Quick Feedback</h4>
+                                <form method="POST" action="{{ url_for('submit_feedback') }}">
+                                    <div class="form-group">
+                                        <label class="form-label">Select Participant</label>
+                                        <select class="form-control" name="participant_id" required>
+                                            <option value="">Choose a participant...</option>
+                                            {% for participant in assigned_participants %}
+                                                <option value="{{ participant.id }}">{{ participant.user.get_full_name() }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Week Number</label>
+                                        <select class="form-control" name="week_number" required>
+                                            {% for week in range(1, 5) %}
+                                                <option value="{{ week }}">Week {{ week }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="rating-input">
+                                        <div class="rating-item">
+                                            <label class="form-label">Participation</label>
+                                            <div class="rating-stars" data-rating="participation_rating">
+                                                {% for i in range(1, 6) %}
+                                                    <i class="fas fa-star star" data-value="{{ i }}"></i>
+                                                {% endfor %}
+                                            </div>
+                                            <input type="hidden" name="participation_rating" value="">
+                                        </div>
+                                        
+                                        <div class="rating-item">
+                                            <label class="form-label">Creativity</label>
+                                            <div class="rating-stars" data-rating="creativity_rating">
+                                                {% for i in range(1, 6) %}
+                                                    <i class="fas fa-star star" data-value="{{ i }}"></i>
+                                                {% endfor %}
+                                            </div>
+                                            <input type="hidden" name="creativity_rating" value="">
+                                        </div>
+                                        
+                                        <div class="rating-item">
+                                            <label class="form-label">Initiative</label>
+                                            <div class="rating-stars" data-rating="initiative_rating">
+                                                {% for i in range(1, 6) %}
+                                                    <i class="fas fa-star star" data-value="{{ i }}"></i>
+                                                {% endfor %}
+                                            </div>
+                                            <input type="hidden" name="initiative_rating" value="">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Comments</label>
+                                        <textarea class="form-control" name="comments" rows="3" placeholder="Share your feedback and observations..."></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Suggestions for Improvement</label>
+                                        <textarea class="form-control" name="suggestions" rows="2" placeholder="How can this participant improve?"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-check mb-3">
+                                        <input type="checkbox" class="form-check-input" name="flag_for_support" id="flagSupport">
+                                        <label class="form-check-label" for="flagSupport">
+                                            Flag this participant for additional support
+                                        </label>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-mentor">
+                                        <i class="fas fa-paper-plane"></i> Submit Feedback
+                                    </button>
+                                </form>
+                            </div>
+                        {% else %}
+                            <div class="empty-state">
+                                <i class="fas fa-users-slash"></i>
+                                <h4>No Participants Assigned</h4>
+                                <p>You will be assigned participants soon. Check back later!</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-bolt"></i> Quick Actions
+                        </h3>
+                        
+                        <div class="quick-actions">
+                            <a href="{{ url_for('video_library') }}" class="action-btn">
+                                <div class="action-icon">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <div>
+                                    <div>Browse Courses</div>
+                                    <small>Stay updated with content</small>
+                                </div>
+                            </a>
+                            
+                            <a href="#" class="action-btn" onclick="showScheduleModal()">
+                                <div class="action-icon">
+                                    <i class="fas fa-calendar-plus"></i>
+                                </div>
+                                <div>
+                                    <div>Schedule Session</div>
+                                    <small>Plan mentoring meetings</small>
+                                </div>
+                            </a>
+                            
+                            <a href="#" class="action-btn" onclick="showResourcesModal()">
+                                <div class="action-icon">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div>
+                                    <div>Download Materials</div>
+                                    <small>Get mentoring resources</small>
+                                </div>
+                            </a>
+                            
+                            <a href="#" class="action-btn" onclick="contactAdmin()">
+                                <div class="action-icon">
+                                    <i class="fas fa-headset"></i>
+                                </div>
+                                <div>
+                                    <div>Contact Support</div>
+                                    <small>Get help when needed</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-clock"></i> Recent Activity
+                        </h3>
+                        
+                        {% if mentor_feedbacks %}
+                            {% for feedback in mentor_feedbacks[-5:] %}
+                                <div class="schedule-item">
+                                    <div class="schedule-time">{{ feedback.created_at.strftime('%b %d') }}</div>
+                                    <div class="schedule-details">
+                                        <div class="schedule-title">Feedback Given</div>
+                                        <div class="schedule-description">
+                                            To {{ feedback.participant.user.get_full_name() }} for Week {{ feedback.week_number }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="empty-state">
+                                <i class="fas fa-history"></i>
+                                <p>No recent activity</p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Mentor Resources -->
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-book"></i> Mentor Resources
+                        </h3>
+                        
+                        <div class="resources-list">
+                            <div class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <div class="resource-title">Mentoring Guide</div>
+                                    <div class="resource-description">Best practices for effective mentoring</div>
+                                </div>
+                            </div>
+                            
+                            <div class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <div class="resource-title">Training Videos</div>
+                                    <div class="resource-description">Learn advanced mentoring techniques</div>
+                                </div>
+                            </div>
+                            
+                            <div class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <div class="resource-title">Mentor Community</div>
+                                    <div class="resource-description">Connect with other mentors</div>
+                                </div>
+                            </div>
+                            
+                            <div class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <div class="resource-title">Progress Tracking</div>
+                                    <div class="resource-description">Tools for monitoring participant progress</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Star rating functionality
+            const ratingContainers = document.querySelectorAll('.rating-stars');
+            
+            ratingContainers.forEach(container => {
+                const stars = container.querySelectorAll('.star');
+                const ratingName = container.dataset.rating;
+                const hiddenInput = document.querySelector(`input[name="${ratingName}"]`);
+                
+                stars.forEach(star => {
+                    star.addEventListener('click', function() {
+                        const value = this.dataset.value;
+                        hiddenInput.value = value;
+                        
+                        // Update star display
+                        stars.forEach((s, index) => {
+                            if (index < value) {
+                                s.classList.add('active');
+                            } else {
+                                s.classList.remove('active');
+                            }
+                        });
+                    });
+                    
+                    star.addEventListener('mouseenter', function() {
+                        const value = this.dataset.value;
+                        stars.forEach((s, index) => {
+                            if (index < value) {
+                                s.style.color = 'var(--secondary-color)';
+                            } else {
+                                s.style.color = '#E9ECEF';
+                            }
+                        });
+                    });
+                });
+                
+                container.addEventListener('mouseleave', function() {
+                    const currentValue = hiddenInput.value;
+                    stars.forEach((s, index) => {
+                        if (index < currentValue) {
+                            s.style.color = 'var(--secondary-color)';
+                        } else {
+                            s.style.color = '#E9ECEF';
+                        }
+                    });
+                });
+            });
+
+            // Participant item hover effects
+            const participantItems = document.querySelectorAll('.participant-item');
+            participantItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(10px)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+
+            // Progress bar animations
+            const progressBars = document.querySelectorAll('.progress');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        });
+
+        function showParticipantDetails(participantId) {
+            // Show detailed participant information modal
+            alert('Participant details for ID: ' + participantId + '\n\nThis would open a detailed view with:\n- Progress timeline\n- Submitted work\n- Previous feedback\n- Contact information');
+        }
+
+        function showScheduleModal() {
+            alert('Schedule Session\n\nThis would open a calendar interface to:\n- Schedule one-on-one sessions\n- Set up group mentoring calls\n- Plan progress check-ins\n- Send calendar invites');
+        }
+
+        function showResourcesModal() {
+            alert('Download Resources\n\nAvailable resources:\n- Mentoring best practices guide\n- Feedback templates\n- SDG reference materials\n- Progress tracking sheets\n- Communication templates');
+        }
+
+        function contactAdmin() {
+            alert('Contact Support\n\nGet help with:\n- Technical issues\n- Participant concerns\n- Program questions\n- Resource requests\n\nEmail: support@talyouth.org\nPhone: +1 (555) 123-4567');
+        }
+
+        // Auto-save feedback drafts
+        const feedbackForm = document.querySelector('.feedback-form form');
+        if (feedbackForm) {
+            const inputs = feedbackForm.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    // Save to localStorage
+                    localStorage.setItem('feedback_draft_' + this.name, this.value);
+                });
+            });
+
+            // Load saved drafts
+            inputs.forEach(input => {
+                const saved = localStorage.getItem('feedback_draft_' + input.name);
+                if (saved) {
+                    input.value = saved;
+                }
+            });
+
+            // Clear drafts on successful submission
+            feedbackForm.addEventListener('submit', function() {
+                inputs.forEach(input => {
+                    localStorage.removeItem('feedback_draft_' + input.name);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
